@@ -8,12 +8,12 @@ using UnityEditor;
 [System.Serializable]
 public class Route
 {
-    public Vector2 start;
-    public Vector2 end;
-    public Route(Vector2 start, Vector2 end)
+    public string name;
+    public Vector2 location;
+    public Route(string name, Vector2 location)
     {
-		this.start = start;
-		this.end = end;
+		this.name = name;
+		this.location = location;
     }
 }
 
@@ -64,9 +64,7 @@ public class GenerateRoutesJSON : EditorWindow
 		List<Route> routes = new List<Route>(rootTransform.childCount);
 		foreach (Transform child in rootTransform)
 		{
-			Transform startTransform = child.Find("Start").GetComponent<Transform>();
-			Transform endTransform = child.Find("End").GetComponent<Transform>();
-			routes.Add(new Route(startTransform.position, endTransform.position));
+			routes.Add(new Route(child.gameObject.name, child.position));
 		}
 		Scene scene = new Scene(routes);
 		return JsonUtility.ToJson(scene);
