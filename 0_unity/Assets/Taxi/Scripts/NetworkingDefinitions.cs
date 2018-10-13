@@ -12,8 +12,8 @@ namespace NetworkingDefinitions
 	[System.Serializable]
 	public class Route
 	{
-	    public float start;
-	    public float end;
+	    public string start;
+	    public string end;
 	}
 
 	[System.Serializable]
@@ -27,6 +27,7 @@ namespace NetworkingDefinitions
 	public class Response
 	{
 	    public string command;
+	    public string mapName;
 	    public Session session;
 	    public int sessionID;
 	    public float x;
@@ -37,10 +38,11 @@ namespace NetworkingDefinitions
 
 	public class Generator
 	{
-		public static string CreateSession()
+		public static string CreateSession(string mapName)
 		{
 			Response response = new Response();
 			response.command = "createSession";
+			response.mapName = mapName;
 			return JsonUtility.ToJson(response);
 		}
 

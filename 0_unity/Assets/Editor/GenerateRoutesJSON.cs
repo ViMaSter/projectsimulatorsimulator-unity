@@ -42,9 +42,10 @@ public class GenerateRoutesJSON : EditorWindow
 	void OnGUI () {
 		if(GUILayout.Button("Generate JSON for scene"))
         {
+            Debug.Log(Application.dataPath + "/../../../../0_server/0_git/maps");
             var path = EditorUtility.SaveFilePanel(
                 "Save Route JSON",
-                Path.Combine(Path.Combine(Application.dataPath, "Scenes"), "MapData"),
+                Application.dataPath + "/../../../../0_server/0_git/maps",
                 EditorSceneManager.GetActiveScene().name + ".json",
                 "json"
             );

@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using WebSocketSharp;
@@ -46,8 +46,8 @@ public class WebSocketServerTester : MonoBehaviour {
 		websocketClient = new WebSocket(IsLocal ? "ws://localhost:5000/" : "ws://projectsimulatorsimulator.herokuapp.com/:39759");
 
 		pingPongs.Enqueue(new PingPong(websocketClient,
-			"{\"command\":\"createSession\"}",
-			"{\"command\":\"sessionJoin\",\"sessionID\":0,\"session\":{\"carPosition\":{\"x\":5,\"y\":6},\"currentRoute\":{\"start\":\"\",\"end\":\"\"}}}"
+			"{\"command\":\"createSession\", \"mapName\": \"TaxiScene\"}",
+			"{\"command\":\"sessionJoin\",\"sessionID\":0,\"mapName\":\"TaxiScene\",\"session\":{\"carPosition\":{\"x\":5,\"y\":6},\"currentRoute\":{\"start\":\"\",\"end\":\"\"}}}"
 		));
 		pingPongs.Enqueue(new PingPong(websocketClient,
 			"{\"command\":\"updateCarPosition\", \"sessionID\": 0, \"x\": 10, \"y\": 20}",
@@ -77,8 +77,8 @@ public class WebSocketServerTester : MonoBehaviour {
 
 
 		pingPongs.Enqueue(new PingPong(websocketClient,
-			NetworkingDefinitions.Generator.CreateSession(),
-			"{\"command\":\"sessionJoin\",\"sessionID\":1,\"session\":{\"carPosition\":{\"x\":5,\"y\":6},\"currentRoute\":{\"start\":\"\",\"end\":\"\"}}}"
+			NetworkingDefinitions.Generator.CreateSession("TaxiScene"),
+			"{\"command\":\"sessionJoin\",\"sessionID\":1,\"mapName\":\"TaxiScene\",\"session\":{\"carPosition\":{\"x\":5,\"y\":6},\"currentRoute\":{\"start\":\"\",\"end\":\"\"}}}"
 		));
 		pingPongs.Enqueue(new PingPong(websocketClient,
 			NetworkingDefinitions.Generator.UpdateCarPosition(1, 10, 20),

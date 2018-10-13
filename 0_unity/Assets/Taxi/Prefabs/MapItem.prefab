@@ -53,7 +53,6 @@ GameObject:
   - component: {fileID: 4508015540003586}
   - component: {fileID: 33088110245868226}
   - component: {fileID: 23134466334271890}
-  - component: {fileID: 65407438894304712}
   m_Layer: 9
   m_Name: Mesh_V
   m_TagString: Untagged
@@ -71,7 +70,6 @@ GameObject:
   - component: {fileID: 4062974083320336}
   - component: {fileID: 33326742113783072}
   - component: {fileID: 23606114923563138}
-  - component: {fileID: 65110688225158132}
   m_Layer: 9
   m_Name: Mesh_H
   m_TagString: Untagged
@@ -87,9 +85,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4152736792337264}
+  - component: {fileID: 65338054066825864}
   m_Layer: 9
   m_Name: TargetZone
-  m_TagString: Untagged
+  m_TagString: checkpoint
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -251,29 +250,17 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1369082876222044}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!65 &65110688225158132
+--- !u!65 &65338054066825864
 BoxCollider:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1369082876222044}
+  m_GameObject: {fileID: 1466940437440416}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!65 &65407438894304712
-BoxCollider:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1368898162634088}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
+  m_Size: {x: 3, y: 3, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &114534463039915244
 MonoBehaviour:

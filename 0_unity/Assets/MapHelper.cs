@@ -12,7 +12,7 @@ public class MapHelper : MonoBehaviour {
 		Transform thisTransform = gameObject.GetComponent<Transform>();
 		foreach (Transform child in rootTransform)
 		{
-			Debug.Log("Created label for " + child.name);
+			// Debug.Log("Created label for " + child.name);
 			GameObject label = Instantiate(MapItem, child.position, Quaternion.identity, child);
 			label.name = "Label";
 			label.GetComponentInChildren<TMPro.TextMeshProUGUI>().text = child.name;
