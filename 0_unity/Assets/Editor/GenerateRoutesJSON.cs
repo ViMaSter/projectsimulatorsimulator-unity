@@ -49,9 +49,12 @@ public class GenerateRoutesJSON : EditorWindow
                 "json"
             );
 
-            string json = GeneratePathJSON();
+            if(path != string.Empty)
+            {
+	            string json = GeneratePathJSON();
 
-            File.WriteAllBytes(path, System.Text.Encoding.UTF8.GetBytes(json));
+	            File.WriteAllBytes(path, System.Text.Encoding.UTF8.GetBytes(json));
+            }
         }
 	}
 
