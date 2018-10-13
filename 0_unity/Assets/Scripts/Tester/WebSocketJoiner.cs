@@ -4,26 +4,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using WebSocketSharp;
 
-[Serializable]
-public class CarPosition
-{
-    public int x;
-    public int y;
-}
-
-[Serializable]
-public class Session
-{
-    public CarPosition carPosition;
-}
-
-[Serializable]
-public class Response
-{
-    public string command;
-    public Session session;
-}
-
 public class WebSocketJoiner : MonoBehaviour {
 
 	public bool IsLocal = false;
@@ -31,8 +11,7 @@ public class WebSocketJoiner : MonoBehaviour {
 	private WebSocket websocketClient;
 	public Transform transform;
 
-	private int x = 0;
-	private int y = 0;
+	private float x = 0.0f, y = 0.0f;
 
 	void Start ()
 	{
@@ -76,7 +55,7 @@ public class WebSocketJoiner : MonoBehaviour {
 	void OnMessage(object sender, WebSocketSharp.MessageEventArgs message)
 	{
 		Debug.Log("JOIN RESPONSE: "+message.Data);
-		Response r = JsonUtility.FromJson<Response>(message.Data);
+		NetworkingDefinitions.Response r = JsonUtility.FromJson<NetworkingDefinitions.Response>(message.Data);
 		x = r.session.carPosition.x;
 		y = r.session.carPosition.y;
 	}
