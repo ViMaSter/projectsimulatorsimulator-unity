@@ -13,25 +13,25 @@ public class TaxiTaskManager : MonoBehaviour {
 
 	private string CurrentCheckpoint = "";
 
+	private int SessionID = -1;
+
 	void Start ()
 	{
-		StartCoroutine(DelayedStart());
-	}
-
-	IEnumerator DelayedStart()
-	{
-		yield return new WaitForSeconds(2.0f);
-		Debug.Log("ATTEMPT!");
-		websocketClient = new WebSocket(NetworkSettings.Instance.IsLocal ? "ws://localhost:5000/" : "ws://projectsimulatorsimulator.herokuapp.com/:22371");
+		websocketClient = new WebSocket(NetworkSettings.WebSocketServer);
 		websocketClient.OnOpen += OnOpen;
 		websocketClient.OnMessage += OnMessage;
 		websocketClient.Connect();
 	}
 
+	void OnDisable()
+	{
+		websocketClient.Close();
+	}
+
 	void OnOpen(object sender, System.EventArgs e)
 	{
 		Debug.Log("Connected!");
-		Connect(0);
+		Connect(-1);
 	}
 
 	void OnMessage(object sender, WebSocketSharp.MessageEventArgs message)
@@ -44,6 +44,10 @@ public class TaxiTaskManager : MonoBehaviour {
 			end = r.session.currentRoute.end;
 			startDone = false;
 			endDone = false;
+		}
+		if (r.command == "sessionJoin")
+		{
+			SessionID = r.sessionID;
 		}
 	}
 
@@ -105,7 +109,7 @@ public class TaxiTaskManager : MonoBehaviour {
 		if (startDone && endDone)
 		{
 			Debug.LogFormat("Attemptin to complete task...");
-			websocketClient.Send(NetworkingDefinitions.Generator.FinishRoute(0));
+			websocketClient.Send(NetworkingDefinitions.Generator.FinishRoute(SessionID));
 		}
 	}
 	

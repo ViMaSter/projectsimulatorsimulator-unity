@@ -10,6 +10,7 @@ public class WebSocketJoiner : MonoBehaviour {
 	public new Transform transform;
 
 	private float x = 0.0f, y = 0.0f;
+	private int SessionID = -1;
 
 	void Start ()
 	{
@@ -19,12 +20,13 @@ public class WebSocketJoiner : MonoBehaviour {
 		websocketClient.Connect();
 	}
 
+	void OnDisable()
+	{
+		websocketClient.Close();
+	}
+
 	void Update()
 	{
-		if (Input.GetKeyDown(KeyCode.D))
-		{
-			Connect(0);
-		}
 		transform.position = new Vector3(x, y, 0);
 
 		if (Input.GetKeyDown(KeyCode.LeftArrow))
@@ -46,7 +48,7 @@ public class WebSocketJoiner : MonoBehaviour {
 
 		if(Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.UpArrow))
 		{
-			websocketClient.Send("{\"command\":\"updateCarPosition\", \"sessionID\": 0, \"x\": "+x+", \"y\": "+y+"}");
+			websocketClient.Send("{\"command\":\"updateCarPosition\", \"sessionID\": "+SessionID+", \"x\": "+x+", \"y\": "+y+"}");
 		}
 	}
 
@@ -56,17 +58,17 @@ public class WebSocketJoiner : MonoBehaviour {
 		NetworkingDefinitions.Response r = JsonUtility.FromJson<NetworkingDefinitions.Response>(message.Data);
 		x = r.session.carPosition.x;
 		y = r.session.carPosition.y;
+
+		if (r.command == "sessionJoin")
+		{
+			// TODO: GLOBALIZE THIS
+			SessionID = r.sessionID;
+		}
 	}
 
 	void OnOpen(object sender, System.EventArgs e)
 	{
 		Debug.Log("JOIN CONNECT");
-	}
-
-	void Connect(int sessionID)
-	{
-		Debug.Log("Connecting...");
-		websocketClient.Send("{\"command\":\"joinSession\", \"sessionID\": "+sessionID+"}");
 	}
 	
 }

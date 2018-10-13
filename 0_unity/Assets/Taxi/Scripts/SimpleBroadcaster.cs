@@ -16,17 +16,22 @@ public class SimpleBroadcaster : MonoBehaviour {
 	void Start ()
 	{
 		Debug.Log("[BROAD] Broadcaster connecting...");
-		websocketClient = new WebSocket(NetworkSettings.Instance.IsLocal ? "ws://localhost:5000/" : "ws://projectsimulatorsimulator.herokuapp.com/:22371");
+		websocketClient = new WebSocket(NetworkSettings.WebSocketServer);
 		websocketClient.OnOpen += OnOpen;
 		websocketClient.OnMessage += OnMessage;
 		websocketClient.Connect();
+	}
+
+	void OnDisable()
+	{
+		websocketClient.Close();
 	}
 
 	void Update()
 	{
 		if (IsReady)
 		{
-			websocketClient.Send("{\"command\":\"updateCarPosition\", \"sessionID\": 0, \"x\": "+carTransform.position.x+", \"y\": "+carTransform.position.y+"}");
+			websocketClient.Send("{\"command\":\"updateCarPosition\", \"sessionID\": "+sessionID+", \"x\": "+carTransform.position.x+", \"y\": "+carTransform.position.y+"}");
 		}
 	}
 
@@ -48,12 +53,6 @@ public class SimpleBroadcaster : MonoBehaviour {
 		Debug.Log("[BROAD] Broadcaster connected!");
 		websocketClient.Send("{\"command\":\"createSession\", \"mapName\": \"TaxiScene\"}");
 		IsReady = true;
-	}
-
-	void Connect(int sessionID)
-	{
-		Debug.Log("[BROAD] Connecting...");
-		websocketClient.Send("{\"command\":\"joinSession\", \"sessionID\": "+sessionID+"}");
 	}
 	
 }

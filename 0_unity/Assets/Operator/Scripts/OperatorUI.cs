@@ -35,21 +35,29 @@ public class OperatorUI : MonoBehaviour {
 	private string currentEnd;
 	private string lastMapName = "";
 	private string mapName = "";
+	private int SessionID = -1;
+
+	private bool UIDirtyFlag = false;
 
 	System.Random randomness = new System.Random();
 
 	void Awake()
 	{
 		Debug.Log("[OPERA] ATTEMPT!");
-		websocketClient = new WebSocket(NetworkSettings.Instance.IsLocal ? "ws://localhost:5000/" : "ws://projectsimulatorsimulator.herokuapp.com/:22371");
+		websocketClient = new WebSocket(NetworkSettings.WebSocketServer);
 		websocketClient.OnOpen += OnOpen;
 		websocketClient.OnMessage += OnMessage;
 		websocketClient.Connect();
 	}
 
+	void OnDisable()
+	{
+		websocketClient.Close();
+	}
+
 	void OnOpen(object sender, System.EventArgs e)
 	{
-		Connect(0);
+		Connect(-1);
 	}
 
 	void RefillList(List<string> disqualifiedLandmarks)
@@ -74,6 +82,7 @@ public class OperatorUI : MonoBehaviour {
 			mapName = r.mapName;
 			currentStart = r.session.currentRoute.start;
 			currentEnd = r.session.currentRoute.end;
+			SessionID = r.sessionID;
 		}
 
 		if (r.session.currentRoute.start != currentStart || r.session.currentRoute.end != currentEnd)
@@ -82,6 +91,7 @@ public class OperatorUI : MonoBehaviour {
 			
 			currentStart = r.session.currentRoute.start;
 			currentEnd = r.session.currentRoute.end;
+			UIDirtyFlag = false;
 		}
 	}
 
@@ -95,7 +105,7 @@ public class OperatorUI : MonoBehaviour {
 	void SelectRoute(List<string> route)
 	{
 		Debug.LogFormat("[OPERA] Selecting from '{0}' to '{1}'", route[0], route[1]);
-		websocketClient.Send(NetworkingDefinitions.Generator.SetCurrentRoute(0, route[0], route[1]));
+		websocketClient.Send(NetworkingDefinitions.Generator.SetCurrentRoute(SessionID, route[0], route[1]));
 	}
 
 	void CheckMapChange()
@@ -124,7 +134,7 @@ public class OperatorUI : MonoBehaviour {
 
 	void OnGUI()
 	{
-		GUI.enabled = currentStart == "" && currentEnd == "";
+		GUI.enabled = (currentStart == "" && currentEnd == "" && !UIDirtyFlag);
 
 		float height = 20;
 		float margin = 10;
@@ -132,8 +142,9 @@ public class OperatorUI : MonoBehaviour {
 		{
 			if (GUI.Button(new Rect(0, (height + margin) * i, 300, 20), string.Format("'{0}' -> '{1}'", offeredRoutes[i][0], offeredRoutes[i][1])))
 			{
-				websocketClient.Send(NetworkingDefinitions.Generator.SetCurrentRoute(0, offeredRoutes[i][0], offeredRoutes[i][1]));
+				websocketClient.Send(NetworkingDefinitions.Generator.SetCurrentRoute(SessionID, offeredRoutes[i][0], offeredRoutes[i][1]));
 				RefillList(offeredRoutes[i]);
+				UIDirtyFlag = true;
 			}
 		}
 	}
