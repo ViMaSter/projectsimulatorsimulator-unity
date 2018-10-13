@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEditor;
 
 [ExecuteInEditMode]
 public class DrawRouteGizmos : MonoBehaviour
@@ -22,6 +23,7 @@ public class DrawRouteGizmos : MonoBehaviour
 		Gizmos.DrawSphere(endTransform.position, 1);
 		Gizmos.color = Color.yellow;
 		Gizmos.DrawLine(startTransform.position, endTransform.position);
+		Handles.Label(endTransform.position, gameObject.name);
 	}
 
 }

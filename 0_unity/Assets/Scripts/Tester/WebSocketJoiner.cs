@@ -9,7 +9,7 @@ public class WebSocketJoiner : MonoBehaviour {
 	public bool IsLocal = false;
 
 	private WebSocket websocketClient;
-	public Transform transform;
+	public new Transform transform;
 
 	private float x = 0.0f, y = 0.0f;
 

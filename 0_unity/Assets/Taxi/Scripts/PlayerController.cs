@@ -11,6 +11,13 @@ public class PlayerController : MonoBehaviour {
 	public float accelerationDrag = 0.1f;
 
 	private float currentSpeed = 0.0f;
+	public float CurrentSpeed
+	{
+		get 
+		{
+			return currentSpeed;
+		}
+	}
 
 	// Turning
 	[Range(0.0f, 1000.0f)]
@@ -21,16 +28,28 @@ public class PlayerController : MonoBehaviour {
 	private float currentSteering = 0.0f;
 
 	// Internals
-	public Transform transform;
+	public new Transform transform;
+	public new Camera playerCamera;
+	public new Camera mapCamera;
 
 	void Update ()
 	{
-		DetectInput();
+		if (ShowMapCamera())
+		{
+			DetectInput();
+		}
 
 		ApplyRotation();
 		ApplySpeed();
 
 		ApplyDrag();
+	}
+
+	bool ShowMapCamera()
+	{
+		playerCamera.enabled = !Input.GetKey(KeyCode.M);
+		mapCamera.enabled = Input.GetKey(KeyCode.M);
+		return !Input.GetKey(KeyCode.M);
 	}
 
 	void DetectInput()

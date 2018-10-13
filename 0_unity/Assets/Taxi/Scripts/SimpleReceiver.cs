@@ -7,7 +7,6 @@ using WebSocketSharp;
 public class SimpleReceiver : MonoBehaviour {
 
 	public bool IsLocal = false;
-	private bool IsReady = false;
 
 	private WebSocket websocketClient;
 	public Transform carTransform;
