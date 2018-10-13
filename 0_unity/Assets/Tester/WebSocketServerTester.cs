@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using WebSocketSharp;
@@ -30,7 +29,7 @@ public class PingPong
 	public void ParseReponse(object sender, WebSocketSharp.MessageEventArgs message)
 	{
 		websocketClient.OnMessage -= ParseReponse;
-		Debug.LogFormat("MESSAGE {0}\n\nExpected: {1}\nGot: {2}", message.Data == expectedResponse ? "MATCHES" : "MISMATCHES!", expectedResponse, message.Data);
+		Debug.LogFormat("MESSAGE {0}\n\nSent:\n{1}\nExpected:\n{2}\nGot:\n{3}\n", message.Data == expectedResponse ? "MATCHES" : "MISMATCHES!", this.sentMessage, expectedResponse, message.Data);
 		callback(message.Data == expectedResponse);
 	}
 }
@@ -48,7 +47,7 @@ public class WebSocketServerTester : MonoBehaviour {
 
 		pingPongs.Enqueue(new PingPong(websocketClient,
 			"{\"command\":\"createSession\"}",
-			"{\"command\":\"sessionUpdate\",\"session\":{\"carPosition\":{\"x\":5,\"y\":6},\"currentRoute\":{\"start\":\"\",\"end\":\"\"}}}"
+			"{\"command\":\"sessionJoin\",\"sessionID\":0,\"session\":{\"carPosition\":{\"x\":5,\"y\":6},\"currentRoute\":{\"start\":\"\",\"end\":\"\"}}}"
 		));
 		pingPongs.Enqueue(new PingPong(websocketClient,
 			"{\"command\":\"updateCarPosition\", \"sessionID\": 0, \"x\": 10, \"y\": 20}",
@@ -79,7 +78,7 @@ public class WebSocketServerTester : MonoBehaviour {
 
 		pingPongs.Enqueue(new PingPong(websocketClient,
 			NetworkingDefinitions.Generator.CreateSession(),
-			"{\"command\":\"sessionUpdate\",\"session\":{\"carPosition\":{\"x\":5,\"y\":6},\"currentRoute\":{\"start\":\"\",\"end\":\"\"}}}"
+			"{\"command\":\"sessionJoin\",\"sessionID\":1,\"session\":{\"carPosition\":{\"x\":5,\"y\":6},\"currentRoute\":{\"start\":\"\",\"end\":\"\"}}}"
 		));
 		pingPongs.Enqueue(new PingPong(websocketClient,
 			NetworkingDefinitions.Generator.UpdateCarPosition(1, 10, 20),
