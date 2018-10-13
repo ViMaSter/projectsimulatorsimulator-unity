@@ -1,5 +1,27 @@
 ﻿using UnityEngine;
 
+[System.Serializable]
+public class Route
+{
+    public string name;
+    public Vector2 location;
+    public Route(string name, Vector2 location)
+    {
+		this.name = name;
+		this.location = location;
+    }
+}
+
+[System.Serializable]
+public class Scene
+{
+	public System.Collections.Generic.List<Route> routes;
+	public Scene(System.Collections.Generic.List<Route> routes)
+	{
+		this.routes = routes;
+	}
+}
+
 namespace NetworkingDefinitions
 {
 	[System.Serializable]

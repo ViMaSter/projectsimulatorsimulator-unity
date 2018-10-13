@@ -36,14 +36,12 @@ public class PingPong
 
 public class WebSocketServerTester : MonoBehaviour {
 
-	public bool IsLocal = false;
-
 	private WebSocket websocketClient;
 	private Queue<PingPong> pingPongs = new Queue<PingPong>();
 
 	void Start ()
 	{
-		websocketClient = new WebSocket(IsLocal ? "ws://localhost:5000/" : "ws://projectsimulatorsimulator.herokuapp.com/:39759");
+		websocketClient = new WebSocket(NetworkSettings.Instance.IsLocal ? "ws://localhost:5000/" : "ws://projectsimulatorsimulator.herokuapp.com/:22371");
 
 		pingPongs.Enqueue(new PingPong(websocketClient,
 			"{\"command\":\"createSession\", \"mapName\": \"TaxiScene\"}",
@@ -106,7 +104,7 @@ public class WebSocketServerTester : MonoBehaviour {
 		));
 	
 		websocketClient.OnOpen += OnOpen;
-		Debug.Log("CONNECTING TO " + (IsLocal ? "LOCAL" : "REMOTE"));
+		Debug.Log("CONNECTING TO " + (NetworkSettings.Instance.IsLocal ? "LOCAL" : "REMOTE"));
 		websocketClient.Connect();
 	}
 

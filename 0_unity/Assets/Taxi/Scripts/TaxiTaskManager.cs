@@ -6,8 +6,6 @@ using WebSocketSharp;
 
 public class TaxiTaskManager : MonoBehaviour {
 
-	public bool IsLocal = false;
-
 	private WebSocket websocketClient;
 
 	private string start, end;
@@ -24,7 +22,7 @@ public class TaxiTaskManager : MonoBehaviour {
 	{
 		yield return new WaitForSeconds(2.0f);
 		Debug.Log("ATTEMPT!");
-		websocketClient = new WebSocket(IsLocal ? "ws://localhost:5000/" : "ws://projectsimulatorsimulator.herokuapp.com/:39759");
+		websocketClient = new WebSocket(NetworkSettings.Instance.IsLocal ? "ws://localhost:5000/" : "ws://projectsimulatorsimulator.herokuapp.com/:22371");
 		websocketClient.OnOpen += OnOpen;
 		websocketClient.OnMessage += OnMessage;
 		websocketClient.Connect();
@@ -44,6 +42,8 @@ public class TaxiTaskManager : MonoBehaviour {
 			Debug.LogFormat("Task Update! [from '{0}' to '{1}']", r.session.currentRoute.start, r.session.currentRoute.end);
 			start = r.session.currentRoute.start;
 			end = r.session.currentRoute.end;
+			startDone = false;
+			endDone = false;
 		}
 	}
 
@@ -104,8 +104,6 @@ public class TaxiTaskManager : MonoBehaviour {
 		}
 		if (startDone && endDone)
 		{
-			startDone = false;
-			endDone = false;
 			Debug.LogFormat("Attemptin to complete task...");
 			websocketClient.Send(NetworkingDefinitions.Generator.FinishRoute(0));
 		}
@@ -115,13 +113,13 @@ public class TaxiTaskManager : MonoBehaviour {
 	{
 		if (!startDone)
 		{
-			GUI.Label(new Rect(0, 0, 600, 30), String.Format("Gast abholen - Haltestelle: {0}", start));
+			GUI.Label(new Rect(0, Screen.height/2, 600, 30), String.Format("Gast abholen - Haltestelle: {0}", start));
 		}
 		else
 		{
 			if (!endDone)
 			{
-				GUI.Label(new Rect(0, 0, 600, 30), String.Format("Gast absetzen - Haltestelle: {0}", end));
+				GUI.Label(new Rect(0, Screen.height/2, 600, 30), String.Format("Gast absetzen - Haltestelle: {0}", end));
 			}
 		}
 	}

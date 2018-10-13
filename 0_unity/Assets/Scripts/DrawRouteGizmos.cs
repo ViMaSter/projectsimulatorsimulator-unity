@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿#if UNITY_EDITOR
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
@@ -6,7 +7,7 @@ using UnityEditor;
 [ExecuteInEditMode]
 public class DrawRouteGizmos : MonoBehaviour
 {
-	new Transform tranform;
+	Transform tranform;
 	void Awake()
 	{
 		tranform = GetComponent<Transform>();
@@ -20,3 +21,4 @@ public class DrawRouteGizmos : MonoBehaviour
 	}
 
 }
+#endif

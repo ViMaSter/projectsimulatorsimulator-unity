@@ -561,5 +561,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0fe54820394ba834caf0ba18fa263aab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsLocal: 1
+  IsLocal: 0
   carTransform: {fileID: 4184554428013118}

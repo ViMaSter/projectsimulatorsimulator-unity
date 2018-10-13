@@ -6,8 +6,6 @@ using WebSocketSharp;
 
 public class WebSocketJoiner : MonoBehaviour {
 
-	public bool IsLocal = false;
-
 	private WebSocket websocketClient;
 	public new Transform transform;
 
@@ -15,7 +13,7 @@ public class WebSocketJoiner : MonoBehaviour {
 
 	void Start ()
 	{
-		websocketClient = new WebSocket(IsLocal ? "ws://localhost:5000/" : "ws://projectsimulatorsimulator.herokuapp.com/:39759");
+		websocketClient = new WebSocket(NetworkSettings.Instance.IsLocal ? "ws://localhost:5000/" : "ws://projectsimulatorsimulator.herokuapp.com/:22371");
 		websocketClient.OnOpen += OnOpen;
 		websocketClient.OnMessage += OnMessage;
 		websocketClient.Connect();

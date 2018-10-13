@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class MeshAnimator : MonoBehaviour {
 
-	public new Material materialH;
-	public new Material materialV;
+	public Material materialH;
+	public Material materialV;
 	public Vector2 speed;
 
 	void Update () {

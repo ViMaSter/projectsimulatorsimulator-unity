@@ -9,7 +9,6 @@ public class MapHelper : MonoBehaviour {
 	void Start ()
 	{
 		Transform rootTransform = GameObject.Find("Routes").GetComponent<Transform>();
-		Transform thisTransform = gameObject.GetComponent<Transform>();
 		foreach (Transform child in rootTransform)
 		{
 			// Debug.Log("Created label for " + child.name);

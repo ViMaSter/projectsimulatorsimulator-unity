@@ -5,28 +5,6 @@ using UnityEngine;
 using UnityEditor.SceneManagement;
 using UnityEditor;
 
-[System.Serializable]
-public class Route
-{
-    public string name;
-    public Vector2 location;
-    public Route(string name, Vector2 location)
-    {
-		this.name = name;
-		this.location = location;
-    }
-}
-
-[System.Serializable]
-public class Scene
-{
-	public List<Route> routes;
-	public Scene(List<Route> routes)
-	{
-		this.routes = routes;
-	}
-}
-
 
 public class GenerateRoutesJSON : EditorWindow
 {
@@ -54,7 +32,14 @@ public class GenerateRoutesJSON : EditorWindow
             {
 	            string json = GeneratePathJSON();
 
-	            File.WriteAllBytes(path, System.Text.Encoding.UTF8.GetBytes(json));
+                File.WriteAllBytes(
+                    path,
+                    System.Text.Encoding.UTF8.GetBytes(json)
+                );
+                File.WriteAllBytes(
+                    Application.dataPath+"/Resources/MapData/"+EditorSceneManager.GetActiveScene().name + ".json",
+                    System.Text.Encoding.UTF8.GetBytes(json)
+                );
             }
         }
 	}

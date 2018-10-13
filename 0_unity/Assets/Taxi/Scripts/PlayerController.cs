@@ -29,8 +29,8 @@ public class PlayerController : MonoBehaviour {
 
 	// Internals
 	public new Transform transform;
-	public new Camera playerCamera;
-	public new Camera mapCamera;
+	public Camera playerCamera;
+	public Camera mapCamera;
 
 	void Update ()
 	{

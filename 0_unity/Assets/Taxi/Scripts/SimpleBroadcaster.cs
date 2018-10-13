@@ -6,7 +6,6 @@ using WebSocketSharp;
 
 public class SimpleBroadcaster : MonoBehaviour {
 
-	public bool IsLocal = false;
 	private bool IsReady = false;
 
 	private WebSocket websocketClient;
@@ -17,7 +16,7 @@ public class SimpleBroadcaster : MonoBehaviour {
 	void Start ()
 	{
 		Debug.Log("[BROAD] Broadcaster connecting...");
-		websocketClient = new WebSocket(IsLocal ? "ws://localhost:5000/" : "ws://projectsimulatorsimulator.herokuapp.com/:39759");
+		websocketClient = new WebSocket(NetworkSettings.Instance.IsLocal ? "ws://localhost:5000/" : "ws://projectsimulatorsimulator.herokuapp.com/:22371");
 		websocketClient.OnOpen += OnOpen;
 		websocketClient.OnMessage += OnMessage;
 		websocketClient.Connect();

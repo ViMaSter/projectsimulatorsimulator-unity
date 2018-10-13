@@ -6,8 +6,6 @@ using WebSocketSharp;
 
 public class SimpleReceiver : MonoBehaviour {
 
-	public bool IsLocal = false;
-
 	private WebSocket websocketClient;
 	public Transform carTransform;
 
@@ -22,7 +20,7 @@ public class SimpleReceiver : MonoBehaviour {
 	{
 		yield return new WaitForSeconds(2.0f);
 		Debug.Log("ATTEMPT!");
-		websocketClient = new WebSocket(IsLocal ? "ws://localhost:5000/" : "ws://projectsimulatorsimulator.herokuapp.com/:39759");
+		websocketClient = new WebSocket(NetworkSettings.Instance.IsLocal ? "ws://localhost:5000/" : "ws://projectsimulatorsimulator.herokuapp.com/:22371");
 		websocketClient.OnOpen += OnOpen;
 		websocketClient.OnMessage += OnMessage;
 		websocketClient.Connect();
