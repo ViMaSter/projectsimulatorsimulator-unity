@@ -37,7 +37,7 @@ public class SimpleReceiver : MonoBehaviour {
 	void OnMessage(object sender, WebSocketSharp.MessageEventArgs message)
 	{
 		NetworkingDefinitions.Response r = JsonUtility.FromJson<NetworkingDefinitions.Response>(message.Data);
-		Debug.LogFormat("Position Update! [{0}, {1}", r.session.carPosition.x, r.session.carPosition.y);
+		Debug.LogFormat("Position Update! [{0}, {1}]", r.session.carPosition.x, r.session.carPosition.y);
 		x = r.session.carPosition.x;
 		y = r.session.carPosition.y;
 	}
