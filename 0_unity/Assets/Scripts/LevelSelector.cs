@@ -11,13 +11,12 @@ public class LevelSelector : MonoBehaviour {
 	{
 		if (GUI.Button(new Rect(0, 0, 200, 20), "Organizer"))
 		{
-			SceneManager.LoadScene(2, LoadSceneMode.Additive);
-			SceneManager.LoadScene(1, LoadSceneMode.Additive);
+			SceneManager.LoadScene("Taxi/TaxiSceneSpectator", LoadSceneMode.Additive);
 			Destroy(this.gameObject);
 		}
 		if (GUI.Button(new Rect(0, 30, 200, 20), "Taxi"))
 		{
-			SceneManager.LoadScene(3, LoadSceneMode.Additive);
+			SceneManager.LoadScene("Taxi/TaxiScenePlayer", LoadSceneMode.Additive);
 			Destroy(this.gameObject);
 		}
 	}

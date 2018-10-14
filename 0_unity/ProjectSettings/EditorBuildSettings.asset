@@ -9,12 +9,9 @@ EditorBuildSettings:
     path: Assets/Scenes/Selector.unity
     guid: 0fb73016c0fa168499bbb2568e3f335f
   - enabled: 1
-    path: Assets/Operator/OperatorScene.unity
-    guid: 5c482671fe639a04aa387d2bddafbdf1
-  - enabled: 1
-    path: Assets/Taxi/TaxiScene.unity
+    path: Assets/Taxi/TaxiSceneSpectator.unity
     guid: d26f7982207a1b24e9cf916f9afb7cae
   - enabled: 1
-    path: Assets/Taxi/TaxiSceneAdditional.unity
+    path: Assets/Taxi/TaxiScenePlayer.unity
     guid: 4b370e47af061164dbd15d55cd8ea1c3
   m_configObjects: {}

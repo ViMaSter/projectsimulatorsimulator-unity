@@ -112,12 +112,12 @@ public class PlayerController : MonoBehaviour {
 
 	void CalculateCurrentDirection()
 	{
-		currentDirection -= currentSteering;
+		currentDirection += currentSteering;
 	}
 
 	void ApplyRotation()
 	{
-		rigidbody.rotation = Quaternion.Euler(new Vector3(currentDirection, -90, 90));
+		rigidbody.rotation = Quaternion.Euler(new Vector3(0, currentDirection, 0));
 	}
 
 	void ApplySpeed()

@@ -31,7 +31,7 @@ public class SimpleBroadcaster : MonoBehaviour {
 	{
 		if (IsReady)
 		{
-			websocketClient.Send("{\"command\":\"updateCarPosition\", \"sessionID\": "+sessionID+", \"x\": "+carTransform.position.x+", \"y\": "+carTransform.position.y+"}");
+			websocketClient.Send("{\"command\":\"updateCarPosition\", \"sessionID\": "+sessionID+", \"x\": "+carTransform.position.x+", \"y\": "+carTransform.position.z+"}");
 		}
 	}
 
