@@ -26,9 +26,17 @@ public class PlayerController : MonoBehaviour {
 	public float steeringDrag = 0.01f;
 
 	private float currentSteering = 0.0f;
+	private float currentDirection = 0.0f;
+
+	public ParticleSystem exhaustParticles;
+	public AudioSource hornAudioSource;
+	public AudioClip hornClip;
+	public Vector2 hornPitchRange;
+
 
 	// Internals
 	public new Transform transform;
+	public new Rigidbody rigidbody;
 	public Camera playerCamera;
 	public Camera mapCamera;
 
@@ -39,10 +47,34 @@ public class PlayerController : MonoBehaviour {
 			DetectInput();
 		}
 
+		ApplyDrag();
+
+		CalculateCurrentDirection();
+
+		ApplyHorn();
+
+		UpdateParticleSystem();
+	}
+
+	void FixedUpdate()
+	{
 		ApplyRotation();
 		ApplySpeed();
+	}
 
-		ApplyDrag();
+	void ApplyHorn()
+	{
+		if(Input.GetKeyDown(KeyCode.H))
+		{
+			hornAudioSource.pitch = Random.Range(hornPitchRange[0], hornPitchRange[1]);
+			hornAudioSource.PlayOneShot(hornClip, 0.5f);
+		}
+	}
+
+	void UpdateParticleSystem()
+	{
+		var module = exhaustParticles.emission;
+		module.rateOverTime = (currentSpeed / 9.0f) * 5000f;
 	}
 
 	bool ShowMapCamera()
@@ -78,13 +110,18 @@ public class PlayerController : MonoBehaviour {
 		currentSteering = currentSteering * (1.0f - steeringDrag);
 	}
 
+	void CalculateCurrentDirection()
+	{
+		currentDirection -= currentSteering;
+	}
+
 	void ApplyRotation()
 	{
-		transform.Rotate(0.0f, currentSteering, 0.0f);
+		rigidbody.rotation = Quaternion.Euler(new Vector3(currentDirection, -90, 90));
 	}
 
 	void ApplySpeed()
 	{
-		transform.Translate(new Vector3(0, 0, currentSpeed) * Time.deltaTime);
+		rigidbody.velocity = transform.forward * currentSpeed;
 	}
 }
