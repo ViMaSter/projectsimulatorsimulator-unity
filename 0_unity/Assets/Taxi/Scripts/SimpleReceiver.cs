@@ -11,7 +11,7 @@ public class SimpleReceiver : MonoBehaviour {
 
 	private float x, y;
 
-	void Start ()
+	void Awake ()
 	{
 		websocketClient = new WebSocket(NetworkSettings.WebSocketServer);
 		websocketClient.OnOpen += OnOpen;

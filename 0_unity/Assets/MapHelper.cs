@@ -6,7 +6,7 @@ public class MapHelper : MonoBehaviour {
 
 	public GameObject MapItem;
 
-	void Start ()
+	void Awake ()
 	{
 		Transform rootTransform = GameObject.Find("Routes").GetComponent<Transform>();
 		foreach (Transform child in rootTransform)

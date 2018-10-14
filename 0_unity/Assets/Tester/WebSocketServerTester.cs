@@ -39,7 +39,7 @@ public class WebSocketServerTester : MonoBehaviour {
 	private WebSocket websocketClient;
 	private Queue<PingPong> pingPongs = new Queue<PingPong>();
 
-	void Start ()
+	void Awake ()
 	{
 		websocketClient = new WebSocket(NetworkSettings.Instance.IsLocal ? "ws://localhost:5000/" : "ws://projectsimulatorsimulator.herokuapp.com/:22371");
 

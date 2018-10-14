@@ -13,7 +13,7 @@ public class SimpleBroadcaster : MonoBehaviour {
 
 	private int sessionID;
 
-	void Start ()
+	void Awake ()
 	{
 		Debug.Log("[BROAD] Broadcaster connecting...");
 		websocketClient = new WebSocket(NetworkSettings.WebSocketServer);
@@ -50,7 +50,7 @@ public class SimpleBroadcaster : MonoBehaviour {
 
 	void OnOpen(object sender, System.EventArgs e)
 	{
-		Debug.Log("[BROAD] Broadcaster connected!");
+		Debug.Log("[BROAD] Broadcaster creating session!");
 		websocketClient.Send("{\"command\":\"createSession\", \"mapName\": \"TaxiScene\"}");
 		IsReady = true;
 	}

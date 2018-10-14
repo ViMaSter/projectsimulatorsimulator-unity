@@ -202,3 +202,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b20b03fd663302d48b7463ff437a4932, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  taxiPlayer: {fileID: 1311239691886348, guid: 60270f2cb36f8b9489f602fd661a0bfe, type: 2}

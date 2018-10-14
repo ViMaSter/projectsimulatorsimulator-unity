@@ -14,4 +14,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Taxi/TaxiScene.unity
     guid: d26f7982207a1b24e9cf916f9afb7cae
+  - enabled: 1
+    path: Assets/Taxi/TaxiSceneAdditional.unity
+    guid: 4b370e47af061164dbd15d55cd8ea1c3
   m_configObjects: {}

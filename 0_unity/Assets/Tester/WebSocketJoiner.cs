@@ -12,7 +12,7 @@ public class WebSocketJoiner : MonoBehaviour {
 	private float x = 0.0f, y = 0.0f;
 	private int SessionID = -1;
 
-	void Start ()
+	void Awake ()
 	{
 		websocketClient = new WebSocket(NetworkSettings.Instance.IsLocal ? "ws://localhost:5000/" : "ws://projectsimulatorsimulator.herokuapp.com/:22371");
 		websocketClient.OnOpen += OnOpen;

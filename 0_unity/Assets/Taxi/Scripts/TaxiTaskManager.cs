@@ -15,7 +15,7 @@ public class TaxiTaskManager : MonoBehaviour {
 
 	private int SessionID = -1;
 
-	void Start ()
+	void Awake ()
 	{
 		websocketClient = new WebSocket(NetworkSettings.WebSocketServer);
 		websocketClient.OnOpen += OnOpen;

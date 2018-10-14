@@ -13,7 +13,7 @@ public class NetworkSettings : MonoBehaviour {
 	{
 		get
 		{
-			return NetworkSettings.Instance.IsLocal ? "ws://localhost:5000/" : "wss://projectsimulatorsimulator.herokuapp.com/";
+			return NetworkSettings.Instance.IsLocal ? "ws://localhost:5000/" : "wss://projectsimulatorsimulator.herokuapp.com";
 		}
 	}
 
@@ -37,7 +37,7 @@ public class NetworkSettings : MonoBehaviour {
 			}
 			if (System.Environment.GetCommandLineArgs()[1] == "--remote")
 			{
-				IsLocal = true;
+				IsLocal = false;
 				var windowPtr = FindWindow(null, "projectsimulatorsimulator");
 				SetWindowText(windowPtr, "REMOTE");
 			}

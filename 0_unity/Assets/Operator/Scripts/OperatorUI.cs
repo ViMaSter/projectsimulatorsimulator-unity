@@ -140,7 +140,7 @@ public class OperatorUI : MonoBehaviour {
 		float margin = 10;
 		for (int i = 0; i < offeredRoutes.Count; i++)
 		{
-			if (GUI.Button(new Rect(0, (height + margin) * i, 300, 20), string.Format("'{0}' -> '{1}'", offeredRoutes[i][0], offeredRoutes[i][1])))
+			if (GUI.Button(new Rect(0, (height + margin) * i, (int)(Screen.width * 0.4), 20), string.Format("'{0}' -> '{1}'", offeredRoutes[i][0], offeredRoutes[i][1])))
 			{
 				websocketClient.Send(NetworkingDefinitions.Generator.SetCurrentRoute(SessionID, offeredRoutes[i][0], offeredRoutes[i][1]));
 				RefillList(offeredRoutes[i]);
