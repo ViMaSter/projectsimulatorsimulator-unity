@@ -39,6 +39,10 @@ public class OperatorUI : MonoBehaviour {
 
 	private bool UIDirtyFlag = false;
 
+	public AudioSource audioSource;
+	public AudioClip newTaskSfx;
+	public bool audioDirtyFlag;
+
 	System.Random randomness = new System.Random();
 
 	void Awake()
@@ -92,6 +96,20 @@ public class OperatorUI : MonoBehaviour {
 			currentStart = r.session.currentRoute.start;
 			currentEnd = r.session.currentRoute.end;
 			UIDirtyFlag = false;
+
+			if (currentStart == "" && currentEnd == "")
+			{
+				audioDirtyFlag = true;
+			}
+		}
+	}
+
+	void CheckAudioDirty()
+	{
+		if (audioDirtyFlag)
+		{
+			audioSource.PlayOneShot(newTaskSfx, 1.0f);
+			audioDirtyFlag = false;
 		}
 	}
 
@@ -130,6 +148,7 @@ public class OperatorUI : MonoBehaviour {
 	void Update()
 	{
 		CheckMapChange();
+		CheckAudioDirty();
 	}
 
 	void OnGUI()

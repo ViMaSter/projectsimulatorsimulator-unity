@@ -15,6 +15,14 @@ public class TaxiTaskManager : MonoBehaviour {
 
 	private int SessionID = -1;
 
+	public AudioSource audioSource;
+	public AudioClip checkpointSfx;
+	public AudioClip failSfx;
+	public AudioClip doneSfx;
+	public AudioClip newTaskSfx;
+	private bool newTaskFlag = false;
+
+
 	void Awake ()
 	{
 		websocketClient = new WebSocket(NetworkSettings.WebSocketServer);
@@ -44,6 +52,10 @@ public class TaxiTaskManager : MonoBehaviour {
 			end = r.session.currentRoute.end;
 			startDone = false;
 			endDone = false;
+			if (r.session.currentRoute.start != "" && r.session.currentRoute.end != "")
+			{
+				newTaskFlag = true;
+			}
 		}
 		if (r.command == "sessionJoin")
 		{
@@ -75,6 +87,12 @@ public class TaxiTaskManager : MonoBehaviour {
 		{
 			SignalCheckpoint(CurrentCheckpoint);
 		}
+
+		if (newTaskFlag)
+		{
+			audioSource.PlayOneShot(newTaskSfx, 0.7f);
+			newTaskFlag = false;
+		}
 	}
 
 	void Connect(int sessionID)
@@ -92,7 +110,12 @@ public class TaxiTaskManager : MonoBehaviour {
 			if (checkpoint == start)
 			{
 				startDone = true;
+				audioSource.PlayOneShot(checkpointSfx, 1.0f);
 				return;
+			}
+			else
+			{
+				audioSource.PlayOneShot(failSfx, 1.0f);
 			}
 		}
 		if (startDone)
@@ -103,6 +126,11 @@ public class TaxiTaskManager : MonoBehaviour {
 				if (checkpoint == end)
 				{
 					endDone = true;
+					audioSource.PlayOneShot(doneSfx, 0.6f);
+				}
+				else
+				{
+					audioSource.PlayOneShot(failSfx, 1.0f);
 				}
 			}
 		}
@@ -115,16 +143,17 @@ public class TaxiTaskManager : MonoBehaviour {
 	
 	void OnGUI()
 	{
-		if (!startDone)
+		if (start == "" && end == "")
+		{
+			GUI.Label(new Rect(0, Screen.height/2, 600, 30), "Warte auf neuen Auftrag...");
+		}
+		else if (!startDone)
 		{
 			GUI.Label(new Rect(0, Screen.height/2, 600, 30), String.Format("Gast abholen - Haltestelle: {0}", start));
 		}
-		else
+		else if (!endDone)
 		{
-			if (!endDone)
-			{
-				GUI.Label(new Rect(0, Screen.height/2, 600, 30), String.Format("Gast absetzen - Haltestelle: {0}", end));
-			}
+			GUI.Label(new Rect(0, Screen.height/2, 600, 30), String.Format("Gast absetzen - Haltestelle: {0}", end));
 		}
 	}
 }
