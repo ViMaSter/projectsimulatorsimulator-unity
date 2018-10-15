@@ -25229,7 +25229,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a4c7cd7fa851fff4cac1d03e8be88c38, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsLocal: 1
+  IsLocal: 0
 --- !u!4 &1793688233
 Transform:
   m_ObjectHideFlags: 0

@@ -40,7 +40,7 @@ public class SimpleReceiver : MonoBehaviour {
 
 	void Update()
 	{
-		carTransform.position = new Vector3(x, y, carTransform.position.z);
+		carTransform.position = new Vector3(x, carTransform.position.y, y);
 	}
 
 	void Connect(int sessionID)
